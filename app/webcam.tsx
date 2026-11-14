@@ -15,6 +15,17 @@ export function Webcam() {
     } | null>(null);
 
     useEffect(() => {
+        const originalConsoleError = console.error;
+        console.error = (...args: unknown[]) => {
+            if (
+            typeof args[0] === "string" &&
+            args[0].includes("Created TensorFlow Lite XNNPACK delegate")
+            ) {
+            return;
+            }
+            originalConsoleError(...args);
+        };
+
         let isCancelled = false;
         let gestureRecognizer: GestureRecognizer | null = null;
         let animationFrameId: number; 
@@ -107,6 +118,7 @@ export function Webcam() {
 
         startWebcam();
         return () => {
+            console.error = originalConsoleError;
             isCancelled = true;
             cancelAnimationFrame(animationFrameId);
             if (stream)
