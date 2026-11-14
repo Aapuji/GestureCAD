@@ -90,7 +90,7 @@ export function Webcam({
                 }
 
                 onReadyRef.current?.();
-                // setIsModelReady(true);
+                setIsModelReady(true);
                 let lastVideoTime = -1;
 
                 function renderLoop() {
