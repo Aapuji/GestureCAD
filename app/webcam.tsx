@@ -30,12 +30,6 @@ export function Webcam({
     const [error, setError] = useState<string | null>(null);
     const [isModelReady, setIsModelReady] = useState(false);
 
-    const [debugInfo, setDebugInfo] = useState<{
-        gesture: string;
-        score: number;
-        handedness: string;
-    } | null>(null);
-
     useEffect(() => {
         const originalConsoleError = console.error;
         console.error = (...args: unknown[]) => {
@@ -147,13 +141,6 @@ export function Webcam({
                     muted
                     className={hidden ? "hidden" : ""}
                 />
-                {/* {debugInfo ? (
-                    <div className="mt-2 p-2 bg-black/80 text-white rounded text-sm font-mono">
-                        Hand: {debugInfo.handedness} | Gesture: {debugInfo.gesture} ({debugInfo.score}%)
-                    </div>
-                ) : (
-                    <p className="mt-2 text-sm text-gray-500">No hand detected</p>
-                )} */}
             </>
         )}
     </div>
