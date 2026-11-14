@@ -3,7 +3,7 @@
 export type Landmark = { x: number; y: number; z?: number }; // 3D coordinate point on the hand
 export type HandInput = { id: string; landmarks: Landmark[] }; // raw hand data: an ID ("Left" or "Right") plus all 21 points
 
-const swap_hand = true; // if the camera is mirrored the hands have to be swapped 
+const swap_hand = false; // if the camera is mirrored the hands have to be swapped 
 
 // Landmark numbers for counting fingers
 export const WRIST = 0;
