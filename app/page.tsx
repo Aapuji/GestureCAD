@@ -1,4 +1,7 @@
+'use client'
+
 import Image from "next/image";
+import { Webcam } from "./webcam";
 
 export default function Home() {
   return (
@@ -63,6 +66,12 @@ export default function Home() {
             Documentation
           </a>
         </div>
+        <Webcam 
+          onFrame={(landmarks, _2) => console.log(landmarks)}
+          onReady={() => {}}
+          onError={err => {}}
+          hidden={false}
+        />
       </main>
     </div>
   );

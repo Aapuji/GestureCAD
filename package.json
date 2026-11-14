@@ -6,9 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "load-wasm": "node -e \"fs.cpSync('node_modules/@mediapipe/tasks-vision/wasm/', 'public/wasm', { recursive: true })\"",
+    "postinstall": "npm run load-wasm"
   },
   "dependencies": {
+    "@mediapipe/tasks-vision": "^1.2.3",
     "next": "16.4.6",
     "react": "19.3.0",
     "react-dom": "19.3.0"
