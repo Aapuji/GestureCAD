@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "load-wasm": "node -e \"fs.cpSync('node_modules/@mediapipe/tasks-vision/wasm/', 'public/wasm', { recursive: true })\"",
-    "postinstall": "nps run load-wasm"
+    "postinstall": "npm run load-wasm"
   },
   "dependencies": {
     "@mediapipe/tasks-vision": "^1.2.3",
