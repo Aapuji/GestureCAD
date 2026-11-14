@@ -4,7 +4,7 @@
 // Visit http://localhost:3000/test
 
 import { useState } from "react";
-import { Webcam } from "../webcam";
+import { Webcam } from "../../components/webcam";
 import { splitHands, countFinger, type HandInput } from "../../lib/gestures";
 
 export default function TestPage() {
