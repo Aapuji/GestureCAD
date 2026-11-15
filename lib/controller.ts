@@ -1,9 +1,9 @@
-import { GestureRecognizerResult } from "@mediapipe/tasks-vision";
+import type { GestureRecognizerResult } from "@mediapipe/tasks-vision";
 import { LeftHandController } from "./left";
 import { RightHandController } from "./right";
-import { HandInput, PinchDetector, splitHands } from "./utils";
+import { type HandInput, splitHands } from "./utils";
 
-class Controller {
+export class Controller {
     private leftHand: LeftHandController;
     private rightHand: RightHandController;
 
@@ -13,25 +13,28 @@ class Controller {
     }
 
     public processInputs(result: GestureRecognizerResult, timestamp: number) {
-        if (!result.landmarks || !result.handedness) return;
+        const seconds = timestamp / 1000;
 
-        const handInputs = Array<HandInput>(result.landmarks.length);
-        for (let i = 0; i < result.landmarks.length; i++) {
-            let categoryName;
-            if (categoryName = result.handedness[i]?.[0]?.categoryName) {}
-            else continue;
+        const handInputs: HandInput[] = [];
+        const landmarks = result.landmarks ?? [];
+        for (let i = 0; i < landmarks.length; i++) {
+            const categoryName = result.handedness?.[i]?.[0]?.categoryName;
+            if (categoryName !== "Left" && categoryName !== "Right") continue;
 
-            handInputs[i] = {
-                id: categoryName as "Left" | "Right",
-                landmarks: result.landmarks[i]
-            }
+            handInputs.push({ id: categoryName, landmarks: landmarks[i] });
         }
 
-        const { left, right } = splitHands(handInputs);
+        const { left } = splitHands(handInputs);
+        const { right } = splitHands(handInputs, false);
 
         if (left)
-            this.leftHand.update(left, timestamp);
+            this.leftHand.update(left, seconds);
+        else
+            this.leftHand.lost();
+
         if (right)
-            this.rightHand.update(right, timestamp);
+            this.rightHand.update(right, seconds);
+        else
+            this.rightHand.lost();
     }
 }
