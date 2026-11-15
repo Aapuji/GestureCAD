@@ -1,4 +1,4 @@
-import { INDEX_TIP, OneEuro, PinchDetector, type Vec3 } from "./utils";
+import { IDLE, INDEX_TIP, OneEuro, PinchDetector, type Vec3 } from "./utils";
 
 export interface MoveTarget {
     setMove(strafe: number, forwards: number): void;
@@ -8,8 +8,6 @@ export interface MoveTarget {
 type LeftState =
     | { status: "idle" }
     | { status: "pinched", anchor: Vec3 };
-
-const IDLE = Object.freeze({ status: "idle" });
 
 const DEADZONE = 0.03;
 const FULL = 0.2;
@@ -28,7 +26,6 @@ export class LeftHandController {
     private target: MoveTarget;
 
     private state: LeftState = IDLE;
-    // private pos: Vec3 | null = null;
 
     // separate filters for X and Y coordinates so they track independently
     private filterX = new OneEuro(1.0, 3, 1.0);
