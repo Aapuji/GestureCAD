@@ -1,7 +1,7 @@
 'use client'
 
 import Image from "next/image";
-import { Webcam } from "./webcam";
+import { Webcam } from "../components/webcam";
 
 export default function Home() {
   return (
